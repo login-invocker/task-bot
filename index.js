@@ -1,6 +1,8 @@
 const Discord = require("discord.js")
 const config = require('./config.json');
 const PREFIX = '$'
+const keepBotLive = require('./keep-live-bot')
+keepBotLive.keepLive()
 var bot = new Discord.Client();
 
 bot.on('ready', function(){
