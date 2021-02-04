@@ -1,13 +1,19 @@
 const Discord = require("discord.js")
+const scheduleJob = require('./schedule-job')
+const schedule = require('node-schedule')
+
 const config = require('./config.json');
 const PREFIX = '$'
 const keepBotLive = require('./keep-live-bot')
 keepBotLive.keepLive()
 var bot = new Discord.Client();
 
+scheduleJob.job()
 bot.on('ready', function(){
-    console.log("bot is now online");
-   
+    console.log(`Bot ready, logged in as ${bot.user.tag}!`);
+    const textChannel = bot.channels.cache.get(config.channelTestBot)
+    
+    scheduleJob.meeting(textChannel, config.metting_content)
 })
 
 bot.on("message", async message => {
@@ -21,9 +27,6 @@ bot.on("message", async message => {
         case "hop-chua?":
             message.channel.send("@everyone Đến h họp rùi nha.");
             break;
-            case "chao-anh-vuong-de":
-                message.channel.send("Em chào anh");
-                break;
     }
   
 })
