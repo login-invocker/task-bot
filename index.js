@@ -18,9 +18,12 @@ bot.on("message", async message => {
         case "ping":
             message.channel.send("pong!");
             break;
-        case "hi":
-            message.channel.send("hi");
+        case "hop-chua?":
+            message.channel.send("@everyone Đến h họp rùi nha.");
             break;
+            case "chao-anh-vuong-de":
+                message.channel.send("Em chào anh");
+                break;
     }
   
 })
