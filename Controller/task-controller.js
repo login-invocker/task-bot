@@ -29,7 +29,7 @@ const deleteTask = async (req, res) => {
   const data = req.body 
   try{
     await Task.deleteOne({
-      _id: data.id
+      _id: data._id
     })
     res.send({code: 200, message: 'Success!!!'})
   }catch{

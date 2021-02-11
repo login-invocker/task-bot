@@ -1,8 +1,6 @@
 {
-
-    "token":"ODA2MjE1NTc5NDU0Mjc1NjY2.YBmMxA.6IATLFD-6kkY-NzZduXb6GoLEac",
     "channelTestBot": "806919802954317835",
     "metting_content": "@everyone start metting",
     "TASK_BOT_CHANNEL_ID": "806216733114236962",
     "db": "mongodb+srv://atm:atm@cluster0.t8kiu.mongodb.net/task?retryWrites=true&w=majority"
-    }
+}
