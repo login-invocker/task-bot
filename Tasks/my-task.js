@@ -16,18 +16,23 @@ const setTextNoti = async () => {
  let textNoti = []
  textNoti.push(`Your task:`)
   tasks.forEach(task => {
-    textNoti.push(`
-    # ${task.title}
+
+   
+    textNoti.push(
+    "``` \n"+
+    `# ${task.title.toUpperCase()}
       - ${task.content}
       - Tạo vào ngày:
         - ${task.date}
-    `)
+    `
+    + "```"
+    )
   
 })
 
   textNoti.push(`
   - $done+Mã để đánh dấu hoàn thành.
-  -  Tạo task tại: https://task-bot-client.invocker.repl.co/`)
+  -  Tạo task tại: https://client-bot-discord.invocker.repl.co/`)
   return textNoti
 }
 const getAllTaskDB = async () => {

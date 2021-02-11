@@ -39,16 +39,12 @@ const deleteTask = async (req, res) => {
 }
 
 const updateTask = async (req, res) => {
-  const newTask = req.body
-console.log()
+  const data = req.body
+  const newTask = data.task
   try{
     await Task.updateOne({
-      _id: data._id
-    }, {
-      title: newTask.title,
-      content: newTask.content,
-      date: newTask.date
-    })
+      _id: newTask.id
+    }, newTask)
     res.send({code: 200, message: 'Success!!!'})
   }catch{
     res.send({code: 201, message: "Cant not update"})
