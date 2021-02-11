@@ -5,6 +5,8 @@ const routers = (router) => {
   taskRoute.createTask(router)
   taskRoute.getAllTask(router)
   taskRoute.deleteTask(router)
+  taskRoute.updateTask(router)
+
 }
 
 module.exports ={

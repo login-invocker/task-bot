@@ -26,7 +26,8 @@ const createTask = async (req, res) => {
 }
 
 const deleteTask = async (req, res) => {
-  const data = req.body 
+  const data = req.params
+
   try{
     await Task.deleteOne({
       _id: data._id
@@ -36,9 +37,28 @@ const deleteTask = async (req, res) => {
     res.send({code: 510, message: "Erro delete"})
   }
 }
+
+const updateTask = async (req, res) => {
+  const newTask = req.body
+console.log()
+  try{
+    await Task.updateOne({
+      _id: data._id
+    }, {
+      title: newTask.title,
+      content: newTask.content,
+      date: newTask.date
+    })
+    res.send({code: 200, message: 'Success!!!'})
+  }catch{
+    res.send({code: 201, message: "Cant not update"})
+  }
+}
+
 module.exports = {
   createTask,
   getAllTask,
   getAllTaskDB,
-  deleteTask
+  deleteTask,
+  updateTask
 }

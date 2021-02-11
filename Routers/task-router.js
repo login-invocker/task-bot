@@ -10,10 +10,16 @@ const getAllTask = (router) => {
 }
 
 const deleteTask = (router) => {
-  router.delete('/api/task', taskController.deleteTask)
+  router.delete('/api/task/:_id', taskController.deleteTask)
 }
+
+const updateTask = (router) => {
+  router.put('/api/task/', taskController.updateTask)
+}
+
 module.exports = {
   createTask,
   getAllTask,
   deleteTask,
+  updateTask
 }
