@@ -1,7 +1,9 @@
 const schedule = require('node-schedule')
-const meeting = (textChannle ,contentNoti) => {
-    schedule.scheduleJob('00 30 00 * * *', ()=>{
-        textChannle.send(contentNoti);
+const alarmTask = (id, textChannle ,contentNoti) => {
+    schedule.scheduleJob(id, ' */59 * * * *', ()=>{
+        contentNoti.forEach(mess=> {
+          textChannle.send(mess);
+        })
     })
 }
 
@@ -9,11 +11,9 @@ const job = () => {
     schedule.scheduleJob('20 28 00 * * *', ()=>{
         console.log("hello job")
     })
-    
 }
 
-
 module.exports = {
-    meeting,
+    alarmTask,
     job
 }

@@ -1,22 +1,15 @@
-const Discord = require("discord.js")
-const scheduleJob = require('./schedule-job')
-const schedule = require('node-schedule')
-
+const bot = require('./bot.js')
 const config = require('./config.json');
 const PREFIX = '$'
 const keepBotLive = require('./keep-live-bot')
 keepBotLive.keepLive()
-var bot = new Discord.Client();
+const myTask = require("./Tasks/my-task")
 
-scheduleJob.job()
-bot.on('ready', function(){
-    console.log(`Bot ready, logged in as ${bot.user.tag}!`);
-    const textChannel = bot.channels.cache.get(config.channelTestBot)
-    
-    scheduleJob.meeting(textChannel, config.metting_content)
+bot.bot.on('ready', function(){
+  myTask.notiTask(bot.bot)
 })
 
-bot.on("message", async message => {
+bot.bot.on("message", async message => {
     if (message.author.equals(bot.user)) return;
     var args = message.content.substring(PREFIX.length).split(" ")
     if (!message.content.startsWith(PREFIX)) return;
@@ -27,8 +20,14 @@ bot.on("message", async message => {
         case "hop-chua?":
             message.channel.send("@everyone Đến h họp rùi nha.");
             break;
+        case "tasks":
+            const textTask = await myTask.getTasks();
+            textTask.forEach(mess => {
+message.channel.send( mess);
+            })
+            
+            break;
     }
   
 })
 
- bot.login(config.token);
