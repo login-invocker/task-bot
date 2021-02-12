@@ -21,7 +21,7 @@ const createTask = async (req, res) => {
   })
 
   await task.save()
-  await taskSchedule.addTask(data)
+  await taskSchedule.updateSchedule(data)
   res.send({code: 200, message: 'Success!!!'})
 }
 
@@ -51,10 +51,26 @@ const updateTask = async (req, res) => {
   }
 }
 
+const updateStatus = async (task) => {
+
+  try{
+    await Task.updateOne({
+      _id: task.id
+    }, {
+      status: task.status
+    })
+    const taskById = await Task.findById(task.id).exec(); 
+    taskSchedule.notiOnetask(taskById)
+    return true
+  }catch{
+    return false
+  }
+}
 module.exports = {
   createTask,
   getAllTask,
   getAllTaskDB,
   deleteTask,
-  updateTask
+  updateTask,
+  updateStatus
 }

@@ -4,7 +4,7 @@ const PREFIX = '$'
 const keepBotLive = require('./keep-live-bot')
 keepBotLive.keepLive()
 const myTask = require("./Tasks/my-task")
-
+const taskController = require('./Controller/task-controller.js')
 bot.bot.on('ready', function(){
   myTask.notiTask(bot.bot)
 })
@@ -25,7 +25,13 @@ bot.bot.on("message", async message => {
             textTask.forEach(mess => {
 message.channel.send( mess);
             })
-            
+            break;
+        case "done":
+            const task = {
+              id: args[1],
+              status: true
+            }
+            await taskController.updateStatus(task)
             break;
     }
   

@@ -4,7 +4,11 @@ const Schema = mongoose.Schema
 const Task = new Schema({
   title: String,
   content: String,
-  date: Date
+  date: Date,
+  status: { 
+    type: Boolean, 
+    default: false
+  }
 })
 
 mongoose.model('Task', Task)

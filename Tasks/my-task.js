@@ -21,9 +21,15 @@ const setTextNoti = async () => {
     textNoti.push(
     "``` \n"+
     `# ${task.title.toUpperCase()}
+      - id:
+        - ${task._id}
       - ${task.content}
       - Tạo vào ngày:
         - ${task.date}
+      - Trạng thái công việc:
+        - ${task.status?
+        "Đã hoàn thành":
+        "Chưa hoàn thành "}
     `
     + "```"
     )
@@ -42,7 +48,7 @@ const getAllTaskDB = async () => {
 }
 
 
-const addTask = async (task) => {
+const updateSchedule = async (task) => {
   const notiTaskOld = schedule.scheduledJobs['notiTask']
   if (notiTaskOld != null)
   notiTaskOld.cancel()
@@ -53,8 +59,27 @@ const getTasks = () => {
   return setTextNoti();
   
 }
+
+
+const notiOnetask = (task) => {
+  const textNoti =  "``` \n"+
+    `# ${task.title.toUpperCase()}
+      - ${task.content}
+      - Tạo vào ngày:
+        -  ${task.date}
+      - Trạng thái:
+        -  ${task.status?
+        "Đã hoàn thành":
+        "Chưa hoàn thành "}
+    `
+    + "```"
+    console.log(textNoti)
+    const textChannel = botDiscord.bot.channels.cache.get(config.TASK_BOT_CHANNEL_ID)
+    return textChannel.send(textNoti);
+}
 module.exports = {
   notiTask,
-  addTask,
-  getTasks
+  updateSchedule,
+  getTasks,
+  notiOnetask
 }
