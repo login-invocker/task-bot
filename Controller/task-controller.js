@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const Task = mongoose.model('Task')
-
 const taskSchedule = require('../Tasks/my-task.js')
 
 const getAllTaskDB = async () => {

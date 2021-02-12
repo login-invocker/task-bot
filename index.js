@@ -5,6 +5,10 @@ const keepBotLive = require('./keep-live-bot')
 keepBotLive.keepLive()
 const myTask = require("./Tasks/my-task")
 const taskController = require('./Controller/task-controller.js')
+
+console.log(new Date())
+
+
 bot.bot.on('ready', function() {
   myTask.notiTask(bot.bot)
 })
@@ -36,4 +40,3 @@ bot.bot.on("message", async message => {
   }
 
 })
-
