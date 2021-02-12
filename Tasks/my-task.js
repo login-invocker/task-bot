@@ -73,7 +73,6 @@ const notiOnetask = (task) => {
       "Chưa hoàn thành "}
     `
     + "```"
-  console.log(textNoti)
   const textChannel = botDiscord.bot.channels.cache.get(config.TASK_BOT_CHANNEL_ID)
   return textChannel.send(textNoti);
 }
