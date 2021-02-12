@@ -24,7 +24,9 @@ const resetTask = (cb) => {
 	rule.second =  date.getSeconds();
 	rule.hour = date.getHours();
 	rule.minute = date.getMinutes();
-  const job = schedule.scheduleJob(config.ID_SCHEDULE, rule, db)
+  const job = schedule.scheduleJob(config.ID_SCHEDULE, rule, ()=>{
+    cb()
+  })
 }
 module.exports = {
   alarmTask,

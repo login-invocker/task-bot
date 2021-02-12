@@ -65,11 +65,20 @@ const updateStatus = async (task) => {
     return false
   }
 }
+
+const resetTask = async () => {
+    const resuiltData = await Task.updateMany({}, {
+    status: false
+  })
+  console.log(resuiltData.nModified)
+  return resuiltData.nModified
+}
 module.exports = {
   createTask,
   getAllTask,
   getAllTaskDB,
   deleteTask,
   updateTask,
-  updateStatus
+  updateStatus,
+  resetTask
 }

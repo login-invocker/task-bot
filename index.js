@@ -5,9 +5,10 @@ const keepBotLive = require('./keep-live-bot')
 keepBotLive.keepLive()
 const myTask = require("./Tasks/my-task")
 const taskController = require('./Controller/task-controller.js')
+const scheduleJob = require('./schedule-job.js')
 
-console.log(new Date())
-
+// 23h58 hàng ngày rết công việc về chưa hoàn thành 
+scheduleJob.resetTask(taskController.resetTask)
 
 bot.bot.on('ready', function() {
   myTask.notiTask(bot.bot)

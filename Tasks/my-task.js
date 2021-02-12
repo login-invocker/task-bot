@@ -77,6 +77,7 @@ const notiOnetask = (task) => {
   const textChannel = botDiscord.bot.channels.cache.get(config.TASK_BOT_CHANNEL_ID)
   return textChannel.send(textNoti);
 }
+
 module.exports = {
   notiTask,
   updateSchedule,
