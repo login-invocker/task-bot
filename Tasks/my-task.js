@@ -5,36 +5,36 @@ const schedule = require('node-schedule')
 const scheduleJob = require('../schedule-job')
 const config = require('../config.json');
 
-const notiTask =  async (bot) => {
+const notiTask = async (bot) => {
   const taskText = await setTextNoti()
   const textChannel = bot.channels.cache.get(config.TASK_BOT_CHANNEL_ID)
-    scheduleJob.alarmTask("notiTask", textChannel, taskText)  
+  scheduleJob.alarmTask("notiTask", textChannel, taskText)
 }
 
 const setTextNoti = async () => {
- const tasks = await getAllTaskDB()
- let textNoti = []
- textNoti.push(`Your task:`)
+  const tasks = await getAllTaskDB()
+  let textNoti = []
+  textNoti.push(`Your task:`)
   tasks.forEach(task => {
 
-   
+
     textNoti.push(
-    "``` \n"+
-    `# ${task.title.toUpperCase()}
+      "``` \n" +
+      `# ${task.title.toUpperCase()}
       - id:
         - ${task._id}
       - ${task.content}
       - Tạo vào ngày:
         - ${task.date}
       - Trạng thái công việc:
-        - ${task.status?
-        "Đã hoàn thành":
+        - ${task.status ?
+        "Đã hoàn thành" :
         "Chưa hoàn thành "}
     `
-    + "```"
+      + "```"
     )
-  
-})
+
+  })
 
   textNoti.push(`
   - $done+Mã để đánh dấu hoàn thành.
@@ -42,8 +42,8 @@ const setTextNoti = async () => {
   return textNoti
 }
 const getAllTaskDB = async () => {
-  
-  const tasks =  Task.find({}).exec()
+
+  const tasks = Task.find({}).exec()
   return tasks
 }
 
@@ -51,31 +51,31 @@ const getAllTaskDB = async () => {
 const updateSchedule = async (task) => {
   const notiTaskOld = schedule.scheduledJobs['notiTask']
   if (notiTaskOld != null)
-  notiTaskOld.cancel()
+    notiTaskOld.cancel()
   await notiTask(botDiscord.bot)
 }
 
 const getTasks = () => {
   return setTextNoti();
-  
+
 }
 
 
 const notiOnetask = (task) => {
-  const textNoti =  "``` \n"+
+  const textNoti = "``` \n" +
     `# ${task.title.toUpperCase()}
       - ${task.content}
       - Tạo vào ngày:
         -  ${task.date}
       - Trạng thái:
-        -  ${task.status?
-        "Đã hoàn thành":
-        "Chưa hoàn thành "}
+        -  ${task.status ?
+      "Đã hoàn thành" :
+      "Chưa hoàn thành "}
     `
     + "```"
-    console.log(textNoti)
-    const textChannel = botDiscord.bot.channels.cache.get(config.TASK_BOT_CHANNEL_ID)
-    return textChannel.send(textNoti);
+  console.log(textNoti)
+  const textChannel = botDiscord.bot.channels.cache.get(config.TASK_BOT_CHANNEL_ID)
+  return textChannel.send(textNoti);
 }
 module.exports = {
   notiTask,

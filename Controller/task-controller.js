@@ -13,7 +13,7 @@ const getAllTask = async (req, res) => {
   res.json(tasks)
 }
 const createTask = async (req, res) => {
-  const data = req.body 
+  const data = req.body
   const task = new Task({
     title: data.title,
     content: data.content,
@@ -22,47 +22,47 @@ const createTask = async (req, res) => {
 
   await task.save()
   await taskSchedule.updateSchedule(data)
-  res.send({code: 200, message: 'Success!!!'})
+  res.send({ code: 200, message: 'Success!!!' })
 }
 
 const deleteTask = async (req, res) => {
   const data = req.params
 
-  try{
+  try {
     await Task.deleteOne({
       _id: data._id
     })
-    res.send({code: 200, message: 'Success!!!'})
-  }catch{
-    res.send({code: 510, message: "Erro delete"})
+    res.send({ code: 200, message: 'Success!!!' })
+  } catch{
+    res.send({ code: 510, message: "Erro delete" })
   }
 }
 
 const updateTask = async (req, res) => {
   const data = req.body
   const newTask = data.task
-  try{
+  try {
     await Task.updateOne({
       _id: newTask.id
     }, newTask)
-    res.send({code: 200, message: 'Success!!!'})
-  }catch{
-    res.send({code: 201, message: "Cant not update"})
+    res.send({ code: 200, message: 'Success!!!' })
+  } catch{
+    res.send({ code: 201, message: "Cant not update" })
   }
 }
 
 const updateStatus = async (task) => {
 
-  try{
+  try {
     await Task.updateOne({
       _id: task.id
     }, {
-      status: task.status
-    })
-    const taskById = await Task.findById(task.id).exec(); 
+        status: task.status
+      })
+    const taskById = await Task.findById(task.id).exec();
     taskSchedule.notiOnetask(taskById)
     return true
-  }catch{
+  } catch{
     return false
   }
 }

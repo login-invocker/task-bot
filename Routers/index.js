@@ -9,6 +9,6 @@ const routers = (router) => {
 
 }
 
-module.exports ={
-routers
+module.exports = {
+  routers
 } 

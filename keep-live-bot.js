@@ -36,15 +36,15 @@ const connectDatabase = async () => {
 const openServer = async () => {
 
 }
-const keepLive = async() => {
-    await connectDatabase();
-    server.listen(8080, () => {
-        console.log("bot is online")
-    })
+const keepLive = async () => {
+  await connectDatabase();
+  server.listen(8080, () => {
+    console.log("bot is online")
+  })
 }
 
 routerConfig.routers(router)
 server.use('/', router);
 module.exports = {
-    keepLive
+  keepLive
 }

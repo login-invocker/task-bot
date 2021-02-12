@@ -4,4 +4,4 @@ const config = require('./config.json');
 let bot = new Discord.Client();
 bot.login(process.env.AUTH_TOKEN);
 
-module.exports.bot=bot
+module.exports.bot = bot

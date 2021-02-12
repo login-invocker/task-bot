@@ -5,8 +5,8 @@ const Task = new Schema({
   title: String,
   content: String,
   date: Date,
-  status: { 
-    type: Boolean, 
+  status: {
+    type: Boolean,
     default: false
   }
 })

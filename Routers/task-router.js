@@ -2,11 +2,11 @@ const taskController = require('../Controller/task-controller.js')
 
 
 const createTask = (router) => {
-  router.post('/api/task',taskController.createTask)
+  router.post('/api/task', taskController.createTask)
 }
 
 const getAllTask = (router) => {
-  router.get('/api/task',taskController.getAllTask)
+  router.get('/api/task', taskController.getAllTask)
 }
 
 const deleteTask = (router) => {
