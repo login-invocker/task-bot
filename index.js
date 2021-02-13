@@ -1,3 +1,4 @@
+require('dotenv')
 const bot = require('./bot.js')
 const config = require('./config.json');
 const PREFIX = '$'
@@ -6,7 +7,7 @@ keepBotLive.keepLive()
 const myTask = require("./Tasks/my-task")
 const taskController = require('./Controller/task-controller.js')
 const scheduleJob = require('./schedule-job.js')
-
+myTask.getTasks()
 // 23h58 hàng ngày resest công việc về chưa hoàn thành 
 scheduleJob.resetTask(taskController.resetTask)
 

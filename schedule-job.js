@@ -16,7 +16,7 @@ const alarmTask = (id, textChannle, contentNoti) => {
 
 const job = () => {
   schedule.scheduleJob('20 28 00 * * *', () => {
-    console.log("hello job")
+    // console.log("hello job")
   })
 }
 

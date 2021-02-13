@@ -1,3 +1,4 @@
+const moment = require('moment')
 const botDiscord = require('../bot.js')
 const mongoose = require('mongoose')
 const Task = mongoose.model('Task')
@@ -48,7 +49,7 @@ const getAllTaskDB = async (option) => {
 }
 
 
-const updateSchedule = async (task) => {
+const updateSchedule = async () => {
   const notiTaskOld = schedule.scheduledJobs['notiTask']
   if (notiTaskOld != null)
     notiTaskOld.cancel()
@@ -56,9 +57,13 @@ const updateSchedule = async (task) => {
 }
 
 const getTasks = () => {
-  // chỉ lấy task chưa hòn thành
+  // chỉ lấy task chưa hòan thành ngày hôm nay
   const option = {
-    status: false
+    status: false,
+    date: {
+      $gte: moment().startOf('day').toDate(),
+      $lte: moment().endOf('day').toDate()
+    }
   }
   return setTextNoti(option);
 

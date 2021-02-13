@@ -19,7 +19,7 @@ const routerConfig = require('./Routers/index.js')
 const connectDatabase = async () => {
   const mongoose = require('mongoose')
   try {
-    const db = await mongoose.connect(config.db, {
+    const db = await mongoose.connect(process.env.DB_CONNECT || config.db, {
       useNewUrlParser: true,
       useFindAndModify: true,
       useCreateIndex: true,

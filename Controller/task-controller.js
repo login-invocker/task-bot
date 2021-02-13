@@ -2,9 +2,12 @@ const mongoose = require('mongoose')
 const Task = mongoose.model('Task')
 const taskSchedule = require('../Tasks/my-task.js')
 
-const getAllTaskDB = async () => {
-  const taskData = await Task.find().exec()
-  return taskData
+const getAllTaskDB = async (query) => {
+
+  if(query)
+    return await Task.find(query).exec()
+  else 
+    return await Task.find().exec()
 }
 
 const getAllTask = async (req, res) => {
@@ -13,12 +16,8 @@ const getAllTask = async (req, res) => {
 }
 const createTask = async (req, res) => {
   const data = req.body
-  const task = new Task({
-    title: data.title,
-    content: data.content,
-    date: new Date()
-  })
 
+  const task = new Task(data)
   await task.save()
   await taskSchedule.updateSchedule(data)
   res.send({ code: 200, message: 'Success!!!' })
@@ -67,12 +66,25 @@ const updateStatus = async (task) => {
 }
 
 const resetTask = async () => {
-    const resuiltData = await Task.updateMany({}, {
-    status: false
-  })
+  const queryModelTask = {
+    isModel: true
+  }
+  const modelTask = await getAllTaskDB(queryModelTask)
+  const newTask = modelTask.map( task => {task.status = false; return task})
 
-  await taskSchedule.updateSchedule(data)
-  return resuiltData.nModified
+  if(newTask){
+    for(let i = 0; i < newTask.length; i++){
+      await Task.create({
+        title: newTask[i].title,
+        content: newTask[i].content
+      })
+    }
+
+    taskSchedule.updateSchedule()
+  }
+  else{
+    
+  }
 }
 module.exports = {
   createTask,
