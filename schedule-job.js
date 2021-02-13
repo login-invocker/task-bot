@@ -1,7 +1,13 @@
 const schedule = require('node-schedule')
 const config = require('./config.json');
 const alarmTask = (id, textChannle, contentNoti) => {
-  schedule.scheduleJob(id, ' */59 * * * *', () => {
+
+  let rule = new schedule.RecurrenceRule();
+  rule.hour = 05;
+  rule.minute = 00;
+  rule.tz = 'Asia/Saigon'
+
+  schedule.scheduleJob(id, rule, () => {
     contentNoti.forEach(mess => {
       textChannle.send(mess);
     })
@@ -16,14 +22,11 @@ const job = () => {
 
 const resetTask = (cb) => {
 
-  let date = new Date("Fri Feb 12 2021 23:58:47 GMT+0700")
-  date.setHours(23);
-  date.setMinutes(58);
+  let rule = new schedule.RecurrenceRule();
+  rule.hour = 23;
+  rule.minute = 58;
+  rule.tz = 'Asia/Saigon'
 
-	let rule = new schedule.RecurrenceRule();
-	rule.second =  date.getSeconds();
-	rule.hour = date.getHours();
-	rule.minute = date.getMinutes();
   const job = schedule.scheduleJob(config.ID_SCHEDULE, rule, ()=>{
     cb()
   })

@@ -7,7 +7,7 @@ const myTask = require("./Tasks/my-task")
 const taskController = require('./Controller/task-controller.js')
 const scheduleJob = require('./schedule-job.js')
 
-// 23h58 hàng ngày rết công việc về chưa hoàn thành 
+// 23h58 hàng ngày resest công việc về chưa hoàn thành 
 scheduleJob.resetTask(taskController.resetTask)
 
 bot.bot.on('ready', function() {
@@ -37,6 +37,13 @@ bot.bot.on("message", async message => {
         status: true
       }
       await taskController.updateStatus(task)
+      break;
+    case "redone":
+      const reDoneTask = {
+        id: args[1],
+        status: false
+      }
+      await taskController.updateStatus(reDoneTask)
       break;
   }
 
