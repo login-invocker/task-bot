@@ -1,7 +1,7 @@
 var app = new Vue({
   el: '#app',
   data: {
-    message: 'Hello Vue!',
+    message: 'Server of task bot! Athor: dangtung789.td@gmail.com',
     questions: [
       {text: "hi doctor"},
       {text: "alo DOctor"}
