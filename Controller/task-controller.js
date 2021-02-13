@@ -70,7 +70,8 @@ const resetTask = async () => {
     const resuiltData = await Task.updateMany({}, {
     status: false
   })
-  console.log(resuiltData.nModified)
+
+  await taskSchedule.updateSchedule(data)
   return resuiltData.nModified
 }
 module.exports = {

@@ -11,10 +11,10 @@ const notiTask = async (bot) => {
   scheduleJob.alarmTask("notiTask", textChannel, taskText)
 }
 
-const setTextNoti = async () => {
-  const tasks = await getAllTaskDB()
+const setTextNoti = async (option) => {
+  const tasks = await getAllTaskDB(option)
   let textNoti = []
-  textNoti.push(`Your task:`)
+  textNoti.push(`You have ${tasks.length} task: `)
   tasks.forEach(task => {
 
 
@@ -41,10 +41,10 @@ const setTextNoti = async () => {
   -  Tạo task tại: https://client-bot-discord.invocker.repl.co/`)
   return textNoti
 }
-const getAllTaskDB = async () => {
-
-  const tasks = Task.find({}).exec()
-  return tasks
+const getAllTaskDB = async (option) => {
+  if(option)
+  return await Task.find(option).exec()
+  return await Task.find().exec()
 }
 
 
@@ -56,7 +56,11 @@ const updateSchedule = async (task) => {
 }
 
 const getTasks = () => {
-  return setTextNoti();
+  // chỉ lấy task chưa hòn thành
+  const option = {
+    status: false
+  }
+  return setTextNoti(option);
 
 }
 
