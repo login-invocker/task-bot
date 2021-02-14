@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 const Task = mongoose.model('Task')
 const taskSchedule = require('../Tasks/my-task.js')
 
-const getAllTaskDB = async (query) => {
+const getAllTaskDB = async (options) => {
 
-  if(query)
-    return await Task.find(query).exec()
+  if(options)
+    return await Task.find(options.query, options.properties).exec()
   else 
     return await Task.find().exec()
 }
@@ -66,18 +66,26 @@ const updateStatus = async (task) => {
 }
 
 const resetTask = async () => {
-  const queryModelTask = {
+  const query = {
     isModel: true
   }
-  const modelTask = await getAllTaskDB(queryModelTask)
+  const properties = 'title content isImportant isEmergency'
+  const options = {
+    query,
+    properties
+  }
+  const modelTask = await getAllTaskDB(options)
   const newTask = modelTask.map( task => {task.status = false; return task})
 
   //Nếu tồn tại task mẫu thì sẽ tạo task mẫu hôm đó
   if(newTask){
+    await Task.create(newTask)
     for(let i = 0; i < newTask.length; i++){
       await Task.create({
         title: newTask[i].title,
-        content: newTask[i].content
+        content: newTask[i].content,
+        isImportant: newTask[i].isImportant,
+        isEmergency: newTask[i].isEmergency
       })
     }
 
