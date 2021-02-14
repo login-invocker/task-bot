@@ -72,6 +72,7 @@ const resetTask = async () => {
   const modelTask = await getAllTaskDB(queryModelTask)
   const newTask = modelTask.map( task => {task.status = false; return task})
 
+  //Nếu tồn tại task mẫu thì sẽ tạo task mẫu hôm đó
   if(newTask){
     for(let i = 0; i < newTask.length; i++){
       await Task.create({
@@ -86,6 +87,8 @@ const resetTask = async () => {
     
   }
 }
+
+
 module.exports = {
   createTask,
   getAllTask,
