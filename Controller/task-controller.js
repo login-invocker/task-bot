@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Task = mongoose.model('Task')
 const taskSchedule = require('../Tasks/my-task.js')
 const helper = require('../helper.js')
-const moment = require('moment')
+const moment = require('moment-timezone')
 
 const getAllTaskDB = async (options) => {
 
@@ -102,8 +102,8 @@ const getTimeMatrix = async (req, res) => {
   const options = {
     query: {
       date: {
-      $gte: moment().startOf('day').toDate(),
-      $lte: moment().endOf('day').toDate()
+      $gte: moment().tz('Asia/Saigon').startOf('day').toDate(),
+      $lte: moment().tz('Asia/Saigon').endOf('day').toDate()
       }
     }
   }
