@@ -23,8 +23,8 @@ const job = () => {
 const resetTask = (cb) => {
 
   let rule = new schedule.RecurrenceRule();
-  rule.hour = 23;
-  rule.minute = 58;
+  rule.hour = 00;
+  rule.minute = 01;
   rule.tz = 'Asia/Saigon'
 
   const job = schedule.scheduleJob(config.ID_SCHEDULE, rule, ()=>{

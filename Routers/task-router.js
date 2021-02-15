@@ -17,9 +17,14 @@ const updateTask = (router) => {
   router.put('/api/task/', taskController.updateTask)
 }
 
+const getTimeMatrix = (router) => {
+  router.get('/api/task/eisenhower', taskController.getTimeMatrix)
+}
+
 module.exports = {
   createTask,
   getAllTask,
   deleteTask,
-  updateTask
+  updateTask,
+  getTimeMatrix
 }

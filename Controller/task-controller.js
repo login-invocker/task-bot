@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const Task = mongoose.model('Task')
 const taskSchedule = require('../Tasks/my-task.js')
+const helper = require('../helper.js')
+const moment = require('moment')
 
 const getAllTaskDB = async (options) => {
 
@@ -96,7 +98,25 @@ const resetTask = async () => {
   }
 }
 
+const getTimeMatrix = async (req, res) => {
+  const options = {
+    query: {
+      date: {
+      $gte: moment().startOf('day').toDate(),
+      $lte: moment().endOf('day').toDate()
+      }
+    }
+  }
+  const todayTasks = await getAllTaskDB(options)
+  if(todayTasks && todayTasks.length > 0){
+    const matrixTask = helper.timeEisenhowerManager(todayTasks)
+    return res.json(matrixTask)
+  }else{
+    res.send({ code: 404, message: "Not found" })
+    return 
+  }
 
+}
 module.exports = {
   createTask,
   getAllTask,
@@ -104,5 +124,6 @@ module.exports = {
   deleteTask,
   updateTask,
   updateStatus,
-  resetTask
+  resetTask,
+  getTimeMatrix
 }

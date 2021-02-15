@@ -6,7 +6,7 @@ const routers = (router) => {
   taskRoute.getAllTask(router)
   taskRoute.deleteTask(router)
   taskRoute.updateTask(router)
-
+  taskRoute.getTimeMatrix(router)
 }
 
 module.exports = {
