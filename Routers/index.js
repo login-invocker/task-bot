@@ -1,5 +1,7 @@
 const homeRoute = require('./home-router.js')
 const taskRoute = require('./task-router.js')
+const userRouter = require('./user.router')
+
 const routers = (router) => {
   homeRoute.getHome(router)
   taskRoute.createTask(router)
@@ -7,6 +9,8 @@ const routers = (router) => {
   taskRoute.deleteTask(router)
   taskRoute.updateTask(router)
   taskRoute.getTimeMatrix(router)
+  userRouter.createUser(router)
+  userRouter.login(router)
 }
 
 module.exports = {

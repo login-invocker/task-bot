@@ -6,6 +6,7 @@ var bodyParser = require('body-parser')
 const cors = require('cors');
 
 require("./models/task.js")
+require("./models/user.model.js")
 
 // parse application/x-www-form-urlencoded
 server.use(bodyParser.urlencoded({ extended: false }))
