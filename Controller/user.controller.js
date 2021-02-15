@@ -42,7 +42,7 @@ exports.create = async function (req, res) {
   }
 
   const loginError = (res, Error) => {
-      return res.status(401).send({ message: Error })
+      return res.status(201).send({ message: Error })
 
   }
   

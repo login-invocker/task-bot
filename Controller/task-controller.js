@@ -125,5 +125,5 @@ module.exports = {
   updateTask,
   updateStatus,
   resetTask,
-  getTimeMatrix
+  getTimeMatrix,
 }
