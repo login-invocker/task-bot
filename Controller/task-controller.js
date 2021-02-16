@@ -3,7 +3,12 @@ const Task = mongoose.model('Task')
 const taskSchedule = require('../Tasks/my-task.js')
 const helper = require('../helper.js')
 const moment = require('moment-timezone')
-
+const momentCore = require('moment')
+// remove Momentjs Deprecation Warning using Format
+momentCore.createFromInputFallback = function(config) {
+  // unreliable string magic, or
+  config._d = new Date(config._i);
+};
 const getAllTaskDB = async (options) => {
 
   if(options)
@@ -27,7 +32,6 @@ const createTask = async (req, res) => {
 
 const deleteTask = async (req, res) => {
   const data = req.params
-
   try {
     await Task.deleteOne({
       _id: data._id
@@ -120,18 +124,31 @@ const getTimeMatrix = async (req, res) => {
 
 const getDataForBarChart = async (req, res) => {
   const data = req.body
+
+    const weekAgo = momentCore().subtract(7, 'days').calendar()
+
+  const dataInit = {
+    startDate: momentCore(weekAgo).format("YYYY-MM-DD"),
+    endDate: momentCore().format("YYYY-MM-DD")
+  }
+
   const optionsAllTask = {
     query: {
       date: {
-      $gte: data.startDate,
-      $lte: data.endDate
+      $gte: data.startDate || dataInit.startDate,
+      $lte: data.endDate || dataInit.endDate
       }
     }
   }
   
   const listTask = await getAllTaskDB(optionsAllTask)
+
   if(listTask && listTask.length > 0){
-  const matrixTask = helper.dataForBarChar(listTask, data)
+    const dataRanger = {
+      startDate: data.startDate || dataInit.startDate,
+      endDate: data.endDate || dataInit.endDate
+    }
+  const matrixTask = helper.dataForBarChar(listTask, dataRanger)
 
     return res.json(matrixTask)
   }else{
