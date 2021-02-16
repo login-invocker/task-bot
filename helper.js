@@ -1,3 +1,4 @@
+const moment = require('moment')
 const timeEisenhowerManager = (listTask) => {
     
     let taskDoFist = [], taskSchedule = [], taskDelegate = [], taskDontDo = []
@@ -78,6 +79,37 @@ const timeEisenhowerManager = (listTask) => {
 // ]
 }
 
+const dataForBarChar = (listTask, data) => {
+  let date = [], allTask = [], taskDone=[], taskUnfinished=[]
+
+  // Lặp từ ngày x đến ngày y
+  for (let m = moment(data.startDate); m.diff(moment(data.endDate), 'days') <= 0; m.add(1, 'days')) {
+    date.push(m.format('YYYY-MM-DD'));
+      let countAll= 0, countDone = 0, countUn = 0;
+
+      listTask.forEach(task => {
+        if(moment(task.date).format('YYYY-MM-DD') === m.format('YYYY-MM-DD')){
+          countAll += 1;
+          if(task.status === true){
+            countDone +=1
+          }else{
+            countUn +=1
+          }
+        }
+        
+      })
+      allTask.push(countAll);
+        taskDone.push(countDone);
+        taskUnfinished.push(countUn)
+  }
+  return {
+    date,
+    allTask,
+    taskDone,
+    taskUnfinished
+  }
+}
 module.exports = {
-  timeEisenhowerManager
+  timeEisenhowerManager,
+  dataForBarChar
 }

@@ -21,10 +21,15 @@ const getTimeMatrix = (router) => {
   router.get('/api/task/eisenhower', taskController.getTimeMatrix)
 }
 
+const getDataForBarChart = (router) => {
+  router.post('/api/task/bar-chart', taskController.getDataForBarChart)
+}
+
 module.exports = {
   createTask,
   getAllTask,
   deleteTask,
   updateTask,
-  getTimeMatrix
+  getTimeMatrix,
+  getDataForBarChart
 }

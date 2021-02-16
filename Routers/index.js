@@ -9,6 +9,7 @@ const routers = (router) => {
   taskRoute.deleteTask(router)
   taskRoute.updateTask(router)
   taskRoute.getTimeMatrix(router)
+  taskRoute.getDataForBarChart(router)
   userRouter.createUser(router)
   userRouter.login(router)
 }

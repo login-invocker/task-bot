@@ -117,6 +117,30 @@ const getTimeMatrix = async (req, res) => {
   }
 
 }
+
+const getDataForBarChart = async (req, res) => {
+  const data = req.body
+  const optionsAllTask = {
+    query: {
+      date: {
+      $gte: data.startDate,
+      $lte: data.endDate
+      }
+    }
+  }
+  
+  const listTask = await getAllTaskDB(optionsAllTask)
+  if(listTask && listTask.length > 0){
+  const matrixTask = helper.dataForBarChar(listTask, data)
+
+    return res.json(matrixTask)
+  }else{
+    res.send({ code: 404, message: "Not found" })
+    return 
+  }
+
+}
+
 module.exports = {
   createTask,
   getAllTask,
@@ -126,4 +150,5 @@ module.exports = {
   updateStatus,
   resetTask,
   getTimeMatrix,
+  getDataForBarChart
 }
