@@ -39,7 +39,7 @@ const openServer = async () => {
 }
 const keepLive = async () => {
   await connectDatabase();
-  server.listen(8080, () => {
+  server.listen(process.env.PORT || 8080, () => {
     console.log("bot is online")
   })
 }
