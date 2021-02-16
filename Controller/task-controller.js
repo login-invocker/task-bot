@@ -136,7 +136,6 @@ const getDataForBarChart = async (req, res) => {
   }
   
   const listTask = await getAllTaskDB(optionsAllTask)
-  console.log(listTask)
   if(listTask && listTask.length > 0){
     const matrixTask = helper.dataForBarChar(listTask, dateRanger)
     
