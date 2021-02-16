@@ -32,7 +32,8 @@ exports.create = async function (req, res) {
     if (!matchUser) {
         loginError(res,'Không có người dùng này trên hệ thống')
     }
-  
+    
+    if(matchUser.authenticate)
     if (!matchUser.authenticate(password)) {
         loginError(res,'Mật khẩu không đúng')
     }

@@ -34,9 +34,7 @@ const connectDatabase = async () => {
     console.log('Could not connect to MongoDB!')
   }
 }
-const openServer = async () => {
 
-}
 const keepLive = async () => {
   await connectDatabase();
   server.listen(process.env.PORT || 8080, () => {
