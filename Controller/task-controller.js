@@ -125,18 +125,17 @@ const getTimeMatrix = async (req, res) => {
 const getDataForBarChart = async (req, res) => {
   const data = req.body
 
-    const weekAgo = momentCore().subtract(7, 'days').calendar()
-
-  const dataInit = {
-    startDate: momentCore(weekAgo).format("YYYY-MM-DD"),
-    endDate: momentCore().format("YYYY-MM-DD")
-  }
+  const weekAgo = momentCore().subtract(7, 'days').calendar()
+  const dateRanger = {
+    startDate: data.startDate || momentCore(weekAgo).format("YYYY-MM-DD"),
+    endDate: data.endDate ||  momentCore().format("YYYY-MM-DD")
+  } 
 
   const optionsAllTask = {
     query: {
       date: {
-      $gte: data.startDate || dataInit.startDate,
-      $lte: data.endDate || dataInit.endDate
+      $gte: dateRanger.startDate,
+      $lte: dateRanger.endDate
       }
     }
   }
@@ -144,12 +143,8 @@ const getDataForBarChart = async (req, res) => {
   const listTask = await getAllTaskDB(optionsAllTask)
 
   if(listTask && listTask.length > 0){
-    const dataRanger = {
-      startDate: data.startDate || dataInit.startDate,
-      endDate: data.endDate || dataInit.endDate
-    }
-  const matrixTask = helper.dataForBarChar(listTask, dataRanger)
-
+    const matrixTask = helper.dataForBarChar(listTask, dateRanger)
+    
     return res.json(matrixTask)
   }else{
     res.send({ code: 404, message: "Not found" })
