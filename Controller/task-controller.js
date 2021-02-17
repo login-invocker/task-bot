@@ -6,9 +6,9 @@ const moment = require('moment-timezone')
 
 const getAllTaskDB = async (options) => {
 
-  if(options)
+  if (options)
     return await Task.find(options.query, options.properties).exec()
-  else 
+  else
     return await Task.find().exec()
 }
 
@@ -76,12 +76,12 @@ const resetTask = async () => {
     properties
   }
   const modelTask = await getAllTaskDB(options)
-  const newTask = modelTask.map( task => {task.status = false; return task})
+  const newTask = modelTask.map(task => { task.status = false; return task })
 
   //Nếu tồn tại task mẫu thì sẽ tạo task mẫu hôm đó
-  if(newTask){
+  if (newTask) {
     await Task.create(newTask)
-    for(let i = 0; i < newTask.length; i++){
+    for (let i = 0; i < newTask.length; i++) {
       await Task.create({
         title: newTask[i].title,
         content: newTask[i].content,
@@ -92,8 +92,8 @@ const resetTask = async () => {
 
     taskSchedule.updateSchedule()
   }
-  else{
-    
+  else {
+
   }
 }
 
@@ -101,18 +101,18 @@ const getTimeMatrix = async (req, res) => {
   const options = {
     query: {
       date: {
-      $gte: moment().tz('Asia/Saigon').startOf('day').toDate(),
-      $lte: moment().tz('Asia/Saigon').endOf('day').toDate()
+        $gte: moment().tz('Asia/Saigon').startOf('day').toDate(),
+        $lte: moment().tz('Asia/Saigon').endOf('day').toDate()
       }
     }
   }
   const todayTasks = await getAllTaskDB(options)
-  if(todayTasks && todayTasks.length > 0){
+  if (todayTasks && todayTasks.length > 0) {
     const matrixTask = helper.timeEisenhowerManager(todayTasks)
     return res.json(matrixTask)
-  }else{
+  } else {
     res.send({ code: 404, message: "Not found" })
-    return 
+    return
   }
 
 }
@@ -124,25 +124,25 @@ const getDataForBarChart = async (req, res) => {
   const dateRanger = {
     startDate: data.startDate || moment(new Date()).startOf('week').startOf('day').toDate(),
     endDate: data.endDate || moment(new Date()).endOf('week').endOf('day').toDate()
-  } 
+  }
 
   const optionsAllTask = {
     query: {
       date: {
-      $gte: dateRanger.startDate,
-      $lte: dateRanger.endDate
+        $gte: dateRanger.startDate,
+        $lte: dateRanger.endDate
       }
     }
   }
 
   const listTask = await getAllTaskDB(optionsAllTask)
-  if(listTask && listTask.length > 0){
+  if (listTask && listTask.length > 0) {
     const matrixTask = helper.dataForBarChar(listTask, dateRanger)
-    
+
     return res.json(matrixTask)
-  }else{
+  } else {
     res.send({ code: 404, message: "Not found" })
-    return 
+    return
   }
 
 }
@@ -150,8 +150,8 @@ const getDataForBarChart = async (req, res) => {
 const getTaskByDate = async (req, res) => {
   const data = req.body
 
-  const options = { 
-  query : {
+  const options = {
+    query: {
       date: {
         $gte: moment(data.date).tz('Asia/Saigon').startOf('day').toDate(),
         $lte: moment(data.date).tz('Asia/Saigon').endOf('day').toDate()
@@ -159,11 +159,11 @@ const getTaskByDate = async (req, res) => {
     }
   }
   const listTask = await getAllTaskDB(options)
-  if(listTask && listTask.length > 0){
+  if (listTask && listTask.length > 0) {
     return res.json(listTask)
-  }else{
+  } else {
     res.status(404).send({ message: "No Data" })
-    return 
+    return
   }
 }
 module.exports = {
