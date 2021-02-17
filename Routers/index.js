@@ -10,8 +10,10 @@ const routers = (router) => {
   taskRoute.updateTask(router)
   taskRoute.getTimeMatrix(router)
   taskRoute.getDataForBarChart(router)
+  taskRoute.getTaskByDate(router)
   userRouter.createUser(router)
   userRouter.login(router)
+  
 }
 
 module.exports = {

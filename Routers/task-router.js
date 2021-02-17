@@ -25,11 +25,16 @@ const getDataForBarChart = (router) => {
   router.post('/api/task/bar-chart', taskController.getDataForBarChart)
 }
 
+const getTaskByDate = (router) => {
+  router.post('/api/task/by-date', taskController.getTaskByDate)
+}
+
 module.exports = {
   createTask,
   getAllTask,
   deleteTask,
   updateTask,
   getTimeMatrix,
-  getDataForBarChart
+  getDataForBarChart,
+  getTaskByDate
 }

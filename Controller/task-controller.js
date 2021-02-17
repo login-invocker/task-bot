@@ -134,7 +134,7 @@ const getDataForBarChart = async (req, res) => {
       }
     }
   }
-  
+
   const listTask = await getAllTaskDB(optionsAllTask)
   if(listTask && listTask.length > 0){
     const matrixTask = helper.dataForBarChar(listTask, dateRanger)
@@ -147,6 +147,25 @@ const getDataForBarChart = async (req, res) => {
 
 }
 
+const getTaskByDate = async (req, res) => {
+  const data = req.body
+
+  const options = { 
+  query : {
+      date: {
+        $gte: moment(data.date).tz('Asia/Saigon').startOf('day').toDate(),
+        $lte: moment(data.date).tz('Asia/Saigon').endOf('day').toDate()
+      }
+    }
+  }
+  const listTask = await getAllTaskDB(options)
+  if(listTask && listTask.length > 0){
+    return res.json(listTask)
+  }else{
+    res.status(404).send({ message: "No Data" })
+    return 
+  }
+}
 module.exports = {
   createTask,
   getAllTask,
@@ -156,5 +175,6 @@ module.exports = {
   updateStatus,
   resetTask,
   getTimeMatrix,
-  getDataForBarChart
+  getDataForBarChart,
+  getTaskByDate
 }
