@@ -107,11 +107,11 @@ const getTimeMatrix = async (req, res) => {
     }
   }
   const todayTasks = await getAllTaskDB(options)
-  if (todayTasks && todayTasks.length > 0) {
+  if (todayTasks) {
     const matrixTask = helper.timeEisenhowerManager(todayTasks)
     return res.json(matrixTask)
   } else {
-    res.send({ code: 404, message: "Not found" })
+    res.status(404).send({ message: "No Data" })
     return
   }
 
@@ -141,7 +141,7 @@ const getDataForBarChart = async (req, res) => {
 
     return res.json(matrixTask)
   } else {
-    res.send({ code: 404, message: "Not found" })
+    res.status(404).send({ message: "No Data" })
     return
   }
 
