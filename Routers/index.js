@@ -11,6 +11,8 @@ const routers = (router) => {
   taskRoute.getTimeMatrix(router)
   taskRoute.getDataForBarChart(router)
   taskRoute.getTaskByDate(router)
+  taskRoute.resetTask(router)
+
   userRouter.createUser(router)
   userRouter.login(router)
   

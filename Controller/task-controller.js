@@ -66,7 +66,7 @@ const updateStatus = async (task) => {
   }
 }
 
-const resetTask = async () => {
+const resetTask = async (req, res) => {
   const query = {
     isModel: true
   }
@@ -91,9 +91,11 @@ const resetTask = async () => {
     }
 
     taskSchedule.updateSchedule()
+    res.status(200).send({ message: "Success" })
+
   }
   else {
-
+    res.status(201).send({ message: "Error reset" })
   }
 }
 
