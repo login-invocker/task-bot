@@ -7,6 +7,8 @@ const cors = require('cors');
 
 require("./models/task.js")
 require("./models/user.model.js")
+require("./models/vocabulary.model")
+
 
 // parse application/x-www-form-urlencoded
 server.use(bodyParser.urlencoded({ extended: false }))
