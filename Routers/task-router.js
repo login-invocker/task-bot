@@ -29,6 +29,10 @@ const getTaskByDate = (router) => {
   router.post('/api/task/by-date', taskController.getTaskByDate)
 }
 
+const resetTask = (router) => {
+  router.post('/api/task/reset', taskController.resetTask)
+}
+
 module.exports = {
   createTask,
   getAllTask,
@@ -36,5 +40,6 @@ module.exports = {
   updateTask,
   getTimeMatrix,
   getDataForBarChart,
-  getTaskByDate
+  getTaskByDate,
+  resetTask
 }

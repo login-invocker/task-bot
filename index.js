@@ -9,7 +9,7 @@ const taskController = require('./Controller/task-controller.js')
 const scheduleJob = require('./schedule-job.js')
 
 // 23h58 hàng ngày resest công việc về chưa hoàn thành 
-scheduleJob.resetTask(taskController.resetTask)
+// scheduleJob.resetTask(taskController.resetTask)
 
 bot.bot.on('ready', function() {
   myTask.notiTask(bot.bot)
